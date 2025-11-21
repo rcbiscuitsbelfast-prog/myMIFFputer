@@ -148,6 +148,9 @@ class PuterAIModule extends AdvancedBase {
 
         const { UsageLimitedChatService } = require('./UsageLimitedChatService');
         services.registerService('usage-limited-chat', UsageLimitedChatService);
+
+        const { MIFFLLMProxyService } = require('../../services/MIFFLLMProxyService');
+        services.registerService('miff-llm-proxy', MIFFLLMProxyService);
     }
 }
 
