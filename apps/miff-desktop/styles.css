@@ -1,0 +1,571 @@
+:root {
+  color-scheme: dark;
+  --desktop-bg: radial-gradient(circle at top, #1f2240, #080a16 45%);
+  --window-bg: #111425d9;
+  --window-border: #2f365a;
+  --window-active: #6bc2ff;
+  --accent: #8fe3ff;
+  --accent-muted: rgba(143, 227, 255, 0.35);
+  --text: #e4e9ff;
+  --text-muted: #9aa2c5;
+  --taskbar-bg: rgba(8, 12, 25, 0.95);
+  --taskbar-border: rgba(255, 255, 255, 0.08);
+  --panel-bg: rgba(13, 17, 31, 0.9);
+  --success: #4ade80;
+  --danger: #f87171;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background: #05060e;
+}
+
+body {
+  font-size: 14px;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+.desktop-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.desktop-canvas {
+  position: relative;
+  flex: 1;
+  background: var(--desktop-bg);
+  overflow: hidden;
+  padding: 24px;
+}
+
+.desktop-window {
+  position: absolute;
+  width: 480px;
+  min-height: 280px;
+  border-radius: 18px;
+  border: 1px solid var(--window-border);
+  background: var(--window-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.desktop-window.is-active {
+  box-shadow: 0 30px 55px rgba(0, 0, 0, 0.7);
+  border-color: var(--window-active);
+}
+
+.window-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  gap: 12px;
+  background: rgba(20, 25, 46, 0.9);
+  cursor: grab;
+  user-select: none;
+}
+
+.window-header:active {
+  cursor: grabbing;
+}
+
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.window-title .icon {
+  font-size: 1.25rem;
+}
+
+.window-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.window-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s ease, border 0.15s ease;
+}
+
+.window-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.window-body {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+}
+
+.taskbar {
+  height: 54px;
+  border-top: 1px solid var(--taskbar-border);
+  background: var(--taskbar-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  gap: 16px;
+}
+
+.taskbar-left,
+.taskbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.start-button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #020409;
+  background: linear-gradient(120deg, #76f7ff, #6bc2ff);
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(107, 194, 255, 0.45);
+}
+
+.taskbar-apps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.taskbar-app-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  cursor: pointer;
+  transition: border 0.15s ease, background 0.15s ease;
+}
+
+.taskbar-app-button .icon {
+  font-size: 1rem;
+}
+
+.taskbar-app-button.is-active {
+  border-color: var(--accent);
+  background: rgba(118, 247, 255, 0.15);
+}
+
+.taskbar-button {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: inherit;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.taskbar-status {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.taskbar-status.ok {
+  color: var(--success);
+}
+
+.taskbar-status.warn {
+  color: #fde047;
+}
+
+.taskbar-clock {
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* Notes app */
+.notes-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 12px;
+}
+
+.notes-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.notes-toolbar button,
+.notes-toolbar select {
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+}
+
+.notes-editor-stack {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  flex: 1;
+}
+
+@media (min-width: 960px) {
+  .notes-editor-stack {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.notes-editor {
+  width: 100%;
+  min-height: 180px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  background: rgba(8, 11, 24, 0.65);
+  color: inherit;
+  resize: none;
+}
+
+.notes-preview {
+  width: 100%;
+  min-height: 180px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  padding: 16px;
+  background: rgba(8, 12, 20, 0.4);
+  overflow: auto;
+}
+
+.snippet-panel {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+}
+
+.snippet-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.snippet-card {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.snippet-card button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(118, 247, 255, 0.15);
+  color: inherit;
+  cursor: pointer;
+}
+
+/* Terminal */
+.terminal-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.terminal-output {
+  flex: 1;
+  background: #05070f;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  padding: 14px;
+  font-family: "Fira Code", "JetBrains Mono", monospace;
+  overflow: auto;
+}
+
+.terminal-output p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.terminal-output .command {
+  color: var(--accent);
+}
+
+.terminal-output .system {
+  color: var(--text-muted);
+}
+
+.terminal-output .error {
+  color: var(--danger);
+}
+
+.terminal-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.terminal-input-row label {
+  font-family: "Fira Code", "JetBrains Mono", monospace;
+  color: var(--accent);
+}
+
+.terminal-input-row input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  font-family: inherit;
+}
+
+/* LLM window */
+.llm-app {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+}
+
+.llm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.llm-header select {
+  margin-top: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 8px;
+  color: inherit;
+}
+
+.llm-messages {
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(6, 9, 18, 0.8);
+  padding: 16px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.llm-message {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.llm-message header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+.llm-message.user {
+  align-self: flex-end;
+  background: rgba(118, 247, 255, 0.12);
+}
+
+.llm-message.assistant {
+  border-color: rgba(118, 247, 255, 0.25);
+}
+
+.llm-message.system {
+  text-align: center;
+  border-style: dashed;
+  opacity: 0.8;
+}
+
+.llm-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.llm-controls textarea {
+  min-height: 80px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  resize: vertical;
+}
+
+.llm-controls footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.llm-controls button {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(118, 247, 255, 0.2);
+  color: #041118;
+  font-weight: 600;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.llm-context {
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.llm-context header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.llm-context button {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  background: rgba(118, 247, 255, 0.18);
+  cursor: pointer;
+}
+
+.llm-snippet-list {
+  max-height: 140px;
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 6px;
+}
+
+.llm-snippet {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.llm-snippet label {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.llm-snippet label input {
+  margin-top: 4px;
+}
+
+.llm-snippet label span {
+  flex: 1;
+}
+
+.llm-context-list {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.text-muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.llm-hint {
+  color: var(--text-muted);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.status-pill.ok {
+  color: var(--success);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.status-pill.warn {
+  color: #fde047;
+  border-color: rgba(253, 224, 71, 0.35);
+}
+
+.status-pill.danger {
+  color: var(--danger);
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+@media (max-width: 900px) {
+  .desktop-window {
+    width: calc(100% - 32px);
+    left: 16px !important;
+    right: 16px !important;
+  }
+
+  .desktop-canvas {
+    padding: 12px;
+  }
+}

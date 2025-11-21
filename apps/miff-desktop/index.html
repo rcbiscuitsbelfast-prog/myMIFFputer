@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MIFF Desktop</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="desktop-shell">
+      <div id="desktop" class="desktop-canvas" aria-live="polite"></div>
+      <footer id="taskbar" class="taskbar" aria-label="Taskbar">
+        <div class="taskbar-left">
+          <button class="start-button" type="button" title="MIFF menu">MIFF</button>
+          <div class="taskbar-apps" role="tablist" aria-label="Open apps"></div>
+        </div>
+        <div class="taskbar-right">
+          <button id="refresh-content" class="taskbar-button" type="button" title="Reload quest + dialogue data">
+            ⟳ Sync content
+          </button>
+          <span id="taskbar-status" class="taskbar-status" aria-live="polite">Offline</span>
+          <time id="desktop-clock" class="taskbar-clock" aria-live="polite"></time>
+        </div>
+      </footer>
+    </div>
+
+    <template id="desktop-window-template">
+      <section class="desktop-window" role="dialog" aria-modal="false">
+        <header class="window-header">
+          <div class="window-title"></div>
+          <div class="window-controls">
+            <button class="window-btn" data-action="minimize" type="button" title="Minimize">—</button>
+            <button class="window-btn" data-action="close" type="button" title="Close">×</button>
+          </div>
+        </header>
+        <div class="window-body"></div>
+      </section>
+    </template>
+
+    <script type="module" src="./main.js"></script>
+  </body>
+</html>
