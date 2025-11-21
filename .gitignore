@@ -64,3 +64,7 @@ AGENTS.md
 
 # source maps
 *.map
+
+# Content schema compiled files
+content/**/SCHEMA.js
+content/**/SCHEMA.js.map

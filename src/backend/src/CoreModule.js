@@ -365,6 +365,9 @@ const install = async ({ context, services, app, useapi, modapi }) => {
     const { HelloWorldService } = require('./services/HelloWorldService');
     services.registerService('hello-world', HelloWorldService);
 
+    const { MiffContentService } = require('./services/MiffContentService');
+    services.registerService('miff-content', MiffContentService);
+
     const { SystemDataService } = require('./services/SystemDataService');
     services.registerService('system-data', SystemDataService);
 
