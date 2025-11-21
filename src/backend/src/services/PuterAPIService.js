@@ -92,6 +92,7 @@ class PuterAPIService extends BaseService {
         app.use(require('../routers/test'))
         app.use(require('../routers/update-taskbar-items'))
         app.use(require('../routers/miff-content'))
+        app.use(require('../routers/miff-llm'))
 
 
         Endpoint({
