@@ -50,9 +50,21 @@ npm start
 **→** This should launch Puter at 
 <font color="red"> http://puter.localhost:4100 (or the next available port). </font>
 
+For development with hot reload:
+```bash
+npm run dev
+```
 
+### 🖥️ MIFF Desktop Development
 
-If this does not work, see [First Run Issues](./doc/self-hosters/first-run-issues.md) for
+For building Vite-based desktop applications on Puter, see the [MIFF Desktop Setup & Deploy Guide](./doc/miff-desktop.md) for:
+- End-to-end local development setup
+- Environment variables for LLM/AI services  
+- Mock mode development without API keys
+- Content folder contracts and integration
+- Render and GitHub Pages deployment
+
+If the basic setup does not work, see [First Run Issues](./doc/self-hosters/first-run-issues.md) for
 troubleshooting steps.
 
 <br/>
@@ -101,6 +113,22 @@ docker compose up
 
 For detailed guides on self-hosting Puter, including configuration options and best practices, see our [Self-Hosting Documentation](https://github.com/HeyPuter/puter/blob/main/doc/self-hosters/instructions.md).
 
+### 🌐 Cloud Deployment
+
+#### Render (Backend)
+Recommended for hosting the Puter backend:
+- Build Command: `npm install && npm run build:ts`
+- Start Command: `npm start`
+- Free tier available with PostgreSQL database
+- See [MIFF Desktop Guide](./doc/miff-desktop.md) for detailed setup
+
+#### GitHub Pages (Frontend)
+For static MIFF desktop applications:
+- Build with Vite: `npm run build:gh-pages`
+- Deploy using gh-pages or GitHub Actions
+- Point to Render backend via environment variables
+- Full deployment guide in [MIFF Desktop Documentation](./doc/miff-desktop.md)
+
 <br/>
 
 ### ☁️ Puter.com
@@ -108,6 +136,54 @@ For detailed guides on self-hosting Puter, including configuration options and b
 Puter is available as a hosted service at [**puter.com**](https://puter.com).
 
 <br/>
+
+## Environment Configuration
+
+### Basic Setup
+
+Copy `.env.example` to `.env` and configure as needed:
+
+```bash
+cp .env.example .env
+```
+
+### AI/LLM Services (Optional)
+
+Puter supports multiple AI providers. Add API keys to `.env` for the services you want to use:
+
+```bash
+# OpenAI (GPT, DALL-E, TTS, etc.)
+OPENAI_API_KEY=your_openai_api_key_here
+
+# Anthropic Claude
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
+
+# Google Gemini
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Together AI
+TOGETHER_AI_API_KEY=your_together_ai_key_here
+
+# Mistral
+MISTRAL_API_KEY=your_mistral_api_key_here
+
+# Groq
+GROQ_API_KEY=your_groq_api_key_here
+
+# xAI
+XAI_API_KEY=your_xai_api_key_here
+
+# AWS Services (Polly, Textract)
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_REGION=us-east-1
+```
+
+### Mock Mode
+
+You can run Puter without API keys to test basic functionality. File management and core features work normally, while AI features will show "service unavailable" messages.
+
+For detailed configuration options, see the [MIFF Desktop Setup & Deploy Guide](./doc/miff-desktop.md).
 
 ## System Requirements
 

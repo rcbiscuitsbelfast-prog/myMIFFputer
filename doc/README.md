@@ -18,6 +18,12 @@ to ask questions.
 - [Configuration](./self-hosters/config.md)
 - [Domain Setup](./self-hosters/domains.md)
 - [Support Levels](./self-hosters/support.md)
+- [MIFF Desktop Setup & Deploy](./miff-desktop.md)
+  - End-to-end setup for Vite-based desktop applications
+  - Environment configuration for AI services
+  - Render and GitHub Pages deployment guides
+- [Content Directory Example](./content-directory-example.md)
+  - Structure and integration patterns for MIFF content packs
 
 ## App Developer Links
 - [developer.puter.com](https://developer.puter.com)
