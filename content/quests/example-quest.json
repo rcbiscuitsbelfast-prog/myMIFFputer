@@ -1,0 +1,15 @@
+{
+  "slug": "example-quest",
+  "title": "Example Quest",
+  "description": "This is an example quest to demonstrate the MIFF content structure",
+  "objectives": [
+    {
+      "id": "objective-1",
+      "description": "Complete the first task"
+    }
+  ],
+  "rewards": {
+    "experience": 100,
+    "items": []
+  }
+}
