@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, } from 'react';
 import mockContent from '../mocks/mockContent';
 const MiffContentContext = createContext(undefined);
@@ -79,7 +80,7 @@ export function MiffContentProvider({ children }) {
         reload,
         isMocked,
     }), [content, status, error, reload, isMocked]);
-    return <MiffContentContext.Provider value={value}>{children}</MiffContentContext.Provider>;
+    return _jsx(MiffContentContext.Provider, { value: value, children: children });
 }
 export function useMiffContent() {
     const context = useContext(MiffContentContext);
@@ -88,4 +89,3 @@ export function useMiffContent() {
     }
     return context;
 }
-//# sourceMappingURL=MiffContentContext.js.map

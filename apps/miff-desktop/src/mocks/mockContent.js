@@ -54,4 +54,3 @@ const mockContent = {
     ],
 };
 export default mockContent;
-//# sourceMappingURL=mockContent.js.map

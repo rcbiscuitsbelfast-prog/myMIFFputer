@@ -1,3 +1,4 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useMiffContent } from '../context/MiffContentContext';
@@ -146,37 +147,5 @@ export function DesktopShell() {
     }, [activeWindowId, focusWindow, launchModule, minimizeWindow, windows]);
     const visibleWindows = windows.filter((win) => !win.minimized);
     const ready = status === 'ready' && modules.length > 0;
-    return (<div className="desktop-shell">
-      <div className="desktop-shell__wallpaper" style={wallpaperStyle}/>
-      <div className="desktop-shell__workspace">
-        {ready && (<WindowManager windows={visibleWindows} activeWindowId={activeWindowId} onFocus={focusWindow} onClose={closeWindow} onMinimize={minimizeWindow} onPositionChange={updatePosition} onSizeChange={updateSize}/>)}
-
-        {!ready && status === 'loading' && (<div className="desktop-shell__status">
-            <h2>Spinning up MIFF desktop</h2>
-            <p>Preloading modules from /api/miff/content…</p>
-          </div>)}
-
-        {modules.length === 0 && status === 'ready' && (<div className="desktop-shell__status">
-            <h2>No MIFF modules yet</h2>
-            <p>There are no modules registered for this environment.</p>
-            <button type="button" onClick={reload}>
-              Retry fetch
-            </button>
-          </div>)}
-
-        {error && (<div className="desktop-shell__status" style={{ marginTop: '2rem' }}>
-            <h2>Using mock content</h2>
-            <p>{error}</p>
-            <button type="button" onClick={reload}>
-              Try real API again
-            </button>
-          </div>)}
-      </div>
-
-      <Taskbar modules={modules} windows={windows} activeWindowId={activeWindowId} onModuleToggle={toggleModuleFromTaskbar}/>
-
-      <SplashScreen visible={showSplash}/>
-      {isMocked && <MockBadge />}
-    </div>);
+    return (_jsxs("div", { className: "desktop-shell", children: [_jsx("div", { className: "desktop-shell__wallpaper", style: wallpaperStyle }), _jsxs("div", { className: "desktop-shell__workspace", children: [ready && (_jsx(WindowManager, { windows: visibleWindows, activeWindowId: activeWindowId, onFocus: focusWindow, onClose: closeWindow, onMinimize: minimizeWindow, onPositionChange: updatePosition, onSizeChange: updateSize })), !ready && status === 'loading' && (_jsxs("div", { className: "desktop-shell__status", children: [_jsx("h2", { children: "Spinning up MIFF desktop" }), _jsx("p", { children: "Preloading modules from /api/miff/content\u2026" })] })), modules.length === 0 && status === 'ready' && (_jsxs("div", { className: "desktop-shell__status", children: [_jsx("h2", { children: "No MIFF modules yet" }), _jsx("p", { children: "There are no modules registered for this environment." }), _jsx("button", { type: "button", onClick: reload, children: "Retry fetch" })] })), error && (_jsxs("div", { className: "desktop-shell__status", style: { marginTop: '2rem' }, children: [_jsx("h2", { children: "Using mock content" }), _jsx("p", { children: error }), _jsx("button", { type: "button", onClick: reload, children: "Try real API again" })] }))] }), _jsx(Taskbar, { modules: modules, windows: windows, activeWindowId: activeWindowId, onModuleToggle: toggleModuleFromTaskbar }), _jsx(SplashScreen, { visible: showSplash }), isMocked && _jsx(MockBadge, {})] }));
 }
-//# sourceMappingURL=DesktopShell.js.map

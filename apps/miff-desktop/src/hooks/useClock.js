@@ -7,4 +7,3 @@ export function useClock() {
     }, []);
     return now;
 }
-//# sourceMappingURL=useClock.js.map

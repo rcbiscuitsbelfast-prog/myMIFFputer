@@ -1,4 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 export function MockBadge() {
-    return <div className="mock-badge">Mock data</div>;
+    return _jsx("div", { className: "mock-badge", children: "Mock data" });
 }
-//# sourceMappingURL=MockBadge.js.map
