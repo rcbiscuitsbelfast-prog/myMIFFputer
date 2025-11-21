@@ -1,0 +1,11 @@
+{
+  "slug": "example-npc",
+  "name": "Example NPC",
+  "description": "An example NPC character",
+  "role": "merchant",
+  "location": "town-center",
+  "attributes": {
+    "friendliness": 8,
+    "trustworthiness": 7
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "slug": "example-item",
+  "name": "Example Item",
+  "type": "consumable",
+  "description": "This is an example item",
+  "value": 50,
+  "effects": {
+    "health_restore": 10
+  }
+}
