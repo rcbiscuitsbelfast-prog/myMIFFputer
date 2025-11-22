@@ -64,6 +64,10 @@ const DEFAULT_FILES = {
                 }
             }
         }, undefined, '    '),
+    },
+    'system': {
+        // System directory for essential system files
+        // This directory is required by various Puter services
     }
 };
 
@@ -79,6 +83,9 @@ class DefaultUserService extends BaseService {
         // check if a user named `admin` exists
         let user = await get_user({ username: USERNAME, cached: false });
         if ( ! user ) user = await this.create_default_user_();
+
+        // Ensure system directory exists for all users
+        await this.ensure_system_directory_exists_(user);
 
         // check if user named `admin` is using default password
         const require = this.require;
@@ -302,6 +309,30 @@ class DefaultUserService extends BaseService {
                 }
             }
         ]);
+    }
+
+    async ensure_system_directory_exists_ (user) {
+        const svc_fs = this.services.get('filesystem');
+        const actor = await Actor.create(UserActorType, { user });
+
+        await Context.get().sub({ user, actor }).arun(async () => {
+            // Check if system directory exists
+            const systemNode = await svc_fs.node(new NodePathSelector('/system'));
+            
+            if (!await systemNode.exists()) {
+                // Create system directory if it doesn't exist
+                const hl_qmkdir = new QuickMkdir();
+                await hl_qmkdir.run({
+                    path: '/system',
+                    user,
+                });
+                
+                const svc_devConsole = this.services.get('dev-console');
+                if (svc_devConsole) {
+                    svc_devConsole.log('System directory created for user: ' + user.username);
+                }
+            }
+        });
     }
 }
 

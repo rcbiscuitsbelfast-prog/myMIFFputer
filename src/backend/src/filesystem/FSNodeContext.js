@@ -655,6 +655,11 @@ module.exports = class FSNodeContext {
         if ( key === 'type' ) {
             await this.fetchEntry();
 
+            // Check if entry exists and has required properties
+            if (!this.entry) {
+                throw new Error(`Entry is undefined for ${this.selector.describe(true)}`);
+            }
+
             // Longest ternary operator chain I've ever written?
             return this.entry.is_shortcut
                 ? FSNodeContext.TYPE_SHORTCUT
@@ -748,6 +753,11 @@ module.exports = class FSNodeContext {
     async getTarget() {
         await this.fetchEntry();
         const type = await this.get('type');
+
+        // Check if type is valid before comparison
+        if (!type) {
+            throw new Error(`Invalid type for ${this.selector.describe(true)}`);
+        }
 
         if ( type === FSNodeContext.TYPE_SYMLINK ) {
             const path = await this.entry.symlink_path;

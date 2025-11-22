@@ -44,13 +44,18 @@
     "start": "node ./tools/run-selfhosted.js",
     "prestart": "npm run build:ts",
     "dev": "npm run build:ts && DEVCONSOLE=1 node ./tools/run-selfhosted.js",
+    "dev:miff-desktop": "echo 'MIFF Desktop development should be done in a separate frontend project. See doc/miff-desktop.md for details.'",
     "build": "npm run build:ts; cd src/gui; node ./build.js",
     "check-translations": "node tools/check-translations.js",
     "prepare": "husky",
     "build:ts": "tsc",
-    "gen": "./scripts/gen.sh"
+    "gen": "./scripts/gen.sh",
+    "dev:miff-desktop": "npm run dev --workspace=@puter/miff-desktop",
+    "build:miff-desktop": "npm run build --workspace=@puter/miff-desktop",
+    "preview:miff-desktop": "npm run preview --workspace=@puter/miff-desktop"
   },
   "workspaces": [
+    "apps/*",
     "src/*",
     "tools/*",
     "experiments/js-parse-and-output"
@@ -70,6 +75,7 @@
     "@heyputer/putility": "^1.0.2",
     "@paralleldrive/cuid2": "^2.2.2",
     "@stylistic/eslint-plugin-js": "^4.4.1",
+    "chokidar": "^3.6.0",
     "dedent": "^1.5.3",
     "express-xml-bodyparser": "^0.4.1",
     "ioredis": "^5.6.0",

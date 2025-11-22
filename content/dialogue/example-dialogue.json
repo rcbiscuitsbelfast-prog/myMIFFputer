@@ -1,0 +1,16 @@
+{
+  "slug": "example-dialogue",
+  "npc": "example-npc",
+  "lines": [
+    {
+      "id": "line-1",
+      "speaker": "player",
+      "text": "Hello, how are you?"
+    },
+    {
+      "id": "line-2",
+      "speaker": "example-npc",
+      "text": "I'm doing well, thank you for asking!"
+    }
+  ]
+}
