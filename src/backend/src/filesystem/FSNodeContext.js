@@ -608,6 +608,13 @@ module.exports = class FSNodeContext {
         if ( key === 'path' ) {
             if ( ! this.path ) await this.fetchEntry();
             if ( this.found === false ) {
+                // Special handling for system directories that might not exist yet
+                const selectorDesc = this.selector.describe(true);
+                if (selectorDesc.includes('[root]/system')) {
+                    // For system directory, return the expected path even if it doesn't exist yet
+                    // This allows the system directory creation process to proceed
+                    return '/system';
+                }
                 throw new Error(`Tried to get path of non-existent fsentry: ` +
                     this.selector.describe(true));
             }
