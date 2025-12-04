@@ -42,7 +42,7 @@
     "test:puterjs-api": "vitest run tests/puterJsApiTests",
     "start=gui": "nodemon --exec \"node dev-server.js\" ",
     "start": "node ./tools/run-selfhosted.js",
-    "prestart": "npm run build:ts",
+    "prestart": "npm run build:ts && cd src/backend/src/services/worker && npm run build",
     "dev": "npm run build:ts && DEVCONSOLE=1 node ./tools/run-selfhosted.js",
     "build": "npm run build:ts; cd src/gui; node ./build.js",
     "check-translations": "node tools/check-translations.js",

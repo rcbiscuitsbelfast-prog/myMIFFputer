@@ -189,10 +189,21 @@ class PuterFSProvider extends putility.AdvancedBase {
      * @returns {Promise<FSNode>}
      */
     async write_new ({ context, parent, name, file }) {
+        // Validate context and extract values safely
+        if (!context || !context.values) {
+            throw new Error('Context is required and must have values property');
+        }
+        
         const {
             tmp, fsentry_tmp, message, actor: inputActor, app_id,
         } = context.values;
+        
         const actor = inputActor ?? Context.get('actor');
+
+        // Validate actor has proper structure
+        if (!actor || !actor.type || !actor.type.user) {
+            throw new Error('Invalid actor: actor must have type.user property');
+        }
 
         const sizeService = this.#services.get('sizeService');
         const resourceService = this.#services.get('resourceService');
@@ -231,6 +242,12 @@ class PuterFSProvider extends putility.AdvancedBase {
         delete fsentry_tmp.thumbnail_promise;
 
         const timestamp = Math.round(Date.now() / 1000);
+        
+        // Double-check actor structure before using it
+        if (!actor || !actor.type || !actor.type.user || !actor.type.user.id) {
+            throw new Error('Invalid actor: actor must have type.user.id property');
+        }
+        
         const raw_fsentry = {
             uuid: uid,
             is_dir: 0,
@@ -319,6 +336,11 @@ class PuterFSProvider extends putility.AdvancedBase {
             tmp, fsentry_tmp, message, actor: inputActor,
         } = context.values;
         const actor = inputActor ?? Context.get('actor');
+
+        // Validate actor has proper structure
+        if (!actor || !actor.type || !actor.type.user) {
+            throw new Error('Invalid actor: actor must have type.user property');
+        }
 
         const sizeService = this.#services.get('sizeService');
         const resourceService = this.#services.get('resourceService');
